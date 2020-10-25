@@ -19,7 +19,7 @@ if command -v exa > /dev/null; then
   alias ls=exa
   alias l="exa -1"
   alias la="exa -la"
-  alias lh="exa -lah"
+  alias lh="exa -lh"
 else
   alias l='ls -l'
   alias la='ls -la'
@@ -88,6 +88,13 @@ extract () {
           echo "'$1' is not a valid file"
       fi
 }
+
+# SEARCHING
+
+alias qfind="find . -name "                 # qfind:    Quickly search for file
+ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
+ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
+ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
 
 ###########################################################################################################################
 
@@ -185,10 +192,6 @@ case "$(uname -s)" in
 
     # SEARCHING
 
-    alias qfind="find . -name "                 # qfind:    Quickly search for file
-    ff () { /usr/bin/find . -name "$@" ; }      # ff:       Find file under the current directory
-    ffs () { /usr/bin/find . -name "$@"'*' ; }  # ffs:      Find file whose name starts with a given string
-    ffe () { /usr/bin/find . -name '*'"$@" ; }  # ffe:      Find file whose name ends with a given string
     # spotlight: Search for a file using MacOS Spotlight's metadata
     spotlight () { mdfind "kMDItemDisplayName == '$@'wc"; }
 
