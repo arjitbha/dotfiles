@@ -1,0 +1,168 @@
+#!/usr/bin/env zsh
+function alias_if_exists() {
+  # Does the alias only if the aliased program is installed
+    if command -v $2 > /dev/null; then
+        alias "$1"="$2"
+    fi
+}
+
+
+# Better defaults
+alias crontab="VIM_CRONTAB=true crontab"
+alias_if_exists "dc" "docker-compose"
+alias_if_exists "bat" "cat"
+
+
+# Shortcuts
+
+## ls
+alias l='ls -l'
+alias la='ls -la'
+alias lh='ls -ltrh'
+
+if command -v exa > /dev/null; then
+  alias ls=exa
+  alias l="exa -1"
+  alias la="exa -a"
+fi
+
+## Git
+alias ga='git add'
+alias gs='git status'
+alias gp='git pull'
+alias gg='git graph'
+alias gsp='git stash && git pull && git stash pop'
+function gD(){
+    git diff $@ | ydiff -s -w0 --wrap
+}
+
+## Jupyter
+alias jc="jupyter console"
+alias jco="jupyter nbconvert"
+alias jn="jupyter notebook"
+alias jn-b="jupyter notebook --no-browser"
+
+## Misc
+alias my-ip="curl ipinfo.io/ip 2> /dev/null"
+alias spell='aspell check'
+alias grepc="grep -P --color=always" #Color grep
+
+alias printpath='echo $PATH | sed "s/:/\\n/g"'
+# Other
+  # Create separator using current columns
+alias sep='tput cols | python -c "import sys; print(\"=\"*int(sys.stdin.read().strip()))"'
+
+# Rename terminal Windows
+  # $1 = type; 0 - both, 1 - tab, 2 - title
+  # rest = text
+setTerminalText () {
+    # echo works in bash & zsh
+    local mode=$1 ; shift
+    echo -ne "\033]$mode;$@\007"
+}
+stt_both  () { setTerminalText 0 $@; }
+stt_tab   () { setTerminalText 1 $@; }
+stt_title () { setTerminalText 2 $@; }
+
+tn () { stt_tab $@ && tmux new -s $@; }
+ta () { stt_tab $@ && tmux a -t $@; }
+
+###########################################################################################################################
+
+# SECRET ALIASES
+if [ -f ~/.secret-aliases ]; then
+    source ~/.secret-aliases
+fi
+
+# LOCAL ALIASES
+if [ -f ~/.local-aliases ]; then
+    source ~/.local-aliases
+fi
+
+# WORK ALIASES
+if [ -f ~/.work_aliases ]; then
+    source ~/.work_aliases
+fi
+
+###########################################################################################################################
+
+# Functions
+# Like a local wormhole
+function snd() {
+    mkdir -p /tmp/passage
+    /bin/cp $1 /tmp/passage
+    /bin/rm /tmp/passage/last &>/dev/null || true
+    echo $1 > /tmp/passage/last
+}
+
+function rcv() {
+    file=$(cat /tmp/passage/last)
+    /bin/cp -i "/tmp/passage/$file" $file
+    /bin/rm "/tmp/passage/$file"
+}
+
+# Complete from google
+function auto() {
+    url='https://www.google.com/complete/search?client=hp&hl=en&xhr=t'
+    # NB: user-agent must be specified to get back UTF-8 data!
+    curl -H 'user-agent: Mozilla/5.0' -sSG --data-urlencode "q=$*" "$url" |
+        jq -r ".[1][][0]" |
+        sed 's,</\?b>,,g'
+}
+
+
+
+###########################################################################################################################
+
+
+# OS dependent aliases
+case "$(uname -s)" in
+
+  Darwin)
+    # echo 'Mac OS X'
+
+    alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome &"
+    alias chromec="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary &"
+
+    alias readlink="greadlink"
+
+    # MacOS GNUs
+    for i in awk cat chgrp chmod chown chroot cut date df du echo egrep env false fgrep find grep join kill link ln logname make mkdir mknod mktemp mv nice nohup paste perf printf pwd readlink realpath rm rmdir sed sort split tac tail tar tee test touch tr true truncate tty uniq unlink unzip uptime users who whoami yes zip; do
+      alias_if_exists "$i" "g$i"
+    done
+    alias_if_exists "id" "/usr/local/bin/gid"
+    alias rm="/usr/local/bin/grm -i"
+    alias mv="/usr/local/bin/gmv -i"
+    alias cp="/usr/local/bin/gcp -i"
+    alias_if_exists "ls" "/usr/local/bin/gls"
+    ;;
+
+  Linux)
+    # echo 'Linux'
+    ;;
+
+  CYGWIN*|MINGW32*|MSYS*)
+    # echo 'MS Windows'
+    ;;
+
+  # Add here more strings to compare
+  # See correspondence table at the bottom of this answer
+
+  *)
+    # echo 'other OS'
+    ;;
+esac
+
+
+# Shell dependent Alias (only zsh has global aliases)
+case $SHELL in
+*/zsh)
+   # assume Zsh
+   ;;
+*/bash)
+   # assume Bash
+   ;;
+*)
+   # assume something else
+   ;;
+esac
