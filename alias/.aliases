@@ -8,22 +8,22 @@ function alias_if_exists() {
 
 
 # Better defaults
-alias crontab="VIM_CRONTAB=true crontab"
-alias_if_exists "dc" "docker-compose"
 alias_if_exists "cat" "bat"
 
 
 # Shortcuts
 
+alias_if_exists "dc" "docker-compose"
 ## ls
-alias l='ls -l'
-alias la='ls -la'
-alias lh='ls -ltrh'
-
 if command -v exa > /dev/null; then
   alias ls=exa
   alias l="exa -1"
-  alias la="exa -a"
+  alias la="exa -la"
+  alias lh="exa -lah"
+else
+  alias l='ls -l'
+  alias la='ls -la'
+  alias lh='ls -lth'
 fi
 
 ## Git
