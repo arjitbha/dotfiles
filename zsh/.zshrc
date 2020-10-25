@@ -75,6 +75,12 @@ plugins=(
   fast-syntax-highlighting
 )
 
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  export ZSH=$HOME/.oh-my-zsh
+  # arjitb> stop complaining on Mac OS Catalina: https://github.com/ohmyzsh/ohmyzsh/issues/8205
+  ZSH_DISABLE_COMPFIX="true"
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -124,5 +130,3 @@ alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-eval $(thefuck --alias)

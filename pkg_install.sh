@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-set -x
+# set -e          # Exit on error
+# set -o pipefail # Exit on pipe error
+# set -x          # Enable verbosity
 
 # OS dependent
 case "$(uname -s)" in
   Darwin)
     echo 'Mac OS X'
-    # Install GNS utils: ls -> gls, readlink -> greadlink
-    brew install coreutils
+    # coreutils: GNU utils for mapping ls -> gls, readlink -> greadlink
+    brew install {coreutils,tmux,zsh,jq,bat,tmuxinator,stow,exa}
     ;;
 
   Linux)

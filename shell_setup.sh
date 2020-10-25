@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 
-set -x
+# set -e          # Exit on error
+# set -o pipefail # Exit on pipe error
+# set -x          # Enable verbosity
 
 #######################
 # BIN
