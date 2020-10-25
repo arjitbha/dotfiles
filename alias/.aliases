@@ -10,7 +10,7 @@ function alias_if_exists() {
 # Better defaults
 alias crontab="VIM_CRONTAB=true crontab"
 alias_if_exists "dc" "docker-compose"
-alias_if_exists "bat" "cat"
+alias_if_exists "cat" "bat"
 
 
 # Shortcuts
