@@ -134,7 +134,6 @@ case "$(uname -s)" in
     alias rm="/usr/local/bin/grm -i"
     alias mv="/usr/local/bin/gmv -i"
     alias cp="/usr/local/bin/gcp -i"
-    alias_if_exists "ls" "/usr/local/bin/gls"
     ;;
 
   Linux)
