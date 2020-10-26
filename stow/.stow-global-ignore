@@ -4,3 +4,6 @@
 
 # Ignore editor temp files
 .+~
+
+README.md
+LICENSE.*
