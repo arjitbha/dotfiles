@@ -1,0 +1,18 @@
+# SSH config template: 
+# ----------------------------------------
+# You can use SSH config to
+# set up aliases to remote servers (hosts)
+# to be able to seamlessly use with 
+# ssh,scp,mosh,etc
+# ----------------------------------------
+
+Host vm
+    User foobar
+    HostName 172.16.174.141
+    Port 2222
+    IdentityFile ~/.ssh/id_ed25519
+    LocalForward 9999 localhost:8888
+
+# Configs can also take wildcards
+Host *.somedomain.com
+    User foobaz
