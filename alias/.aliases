@@ -34,10 +34,7 @@ else
 fi
 
 ## Git
-alias ga='git add'
-alias gs='git status'
-alias gp='git pull'
-alias gg='git graph'
+alias gX='git add -u && git commit -m "x" && git push'
 alias gsp='git stash && git pull && git stash pop'
 function gD(){
     git diff $@ | ydiff -s -w0 --wrap

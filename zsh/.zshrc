@@ -81,6 +81,7 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 fi
 
 export ZSH=$HOME/.oh-my-zsh
+DISABLE_AUTO_UPDATE="true"    # arjitb> disable auto update
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
