@@ -67,3 +67,26 @@ mkdir -p $HOME/.zsh
 if [[ ! -d $ZSH/custom/plugins/fast-syntax-highlighting ]]; then
     git clone https://github.com/zdharma/fast-syntax-highlighting.git $ZSH/custom/plugins/fast-syntax-highlighting
 fi
+
+
+# #######################
+# # VIM-SENSIBLE
+# #######################
+
+# forked from https://github.com/tpope/vim-sensible
+if [[ ! -d $HOME/.vim/pack/tpope/start ]]; then
+    mkdir -p $HOME/.vim/pack/tpope/start
+    git clone https://github.com/arjitb/vim-sensible.git $HOME/.vim/pack/tpope/start
+fi
+
+
+# #######################
+# # B-PY-TOP
+# #######################
+
+if [[ ! -f $HOME/bin/bpytop ]]; then
+    git clone https://github.com/aristocratos/bpytop.git /tmp/bpytop
+    cd /tmp/bpytop
+    PREFIX=$HOME make install
+    cd -
+fi

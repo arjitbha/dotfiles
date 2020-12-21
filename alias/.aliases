@@ -6,16 +6,10 @@ function alias_if_exists() {
     fi
 }
 
-function alias_with_option_if_exists() {
-    # Does the alias (with option) only if the aliased program is installed
-    if command -v $2 > /dev/null; then
-        alias "$1"="$2 $3"
-    fi
-}
-
 
 # Better defaults
-alias_with_option_if_exists "cat" "bat" "-p"
+alias_if_exists "cat" "bat"
+alias_if_exists "ptop" "bpytop"
 
 
 # Shortcuts
@@ -79,7 +73,7 @@ extract () {
     if [ -f $1 ] ; then
       case $1 in
         *.tar.bz2)   tar xjf $1     ;;
-        *.tar.gz)    tar xzf $1     ;;
+        *.tar.gz)    tar xvf $1     ;;
         *.bz2)       bunzip2 $1     ;;
         *.rar)       unrar e $1     ;;
         *.gz)        gunzip $1      ;;
@@ -189,7 +183,7 @@ case "$(uname -s)" in
     alias readlink="greadlink"
 
     # MacOS GNUs
-    for i in awk cat chgrp chmod chown chroot cut date df du echo egrep env false fgrep find grep join kill link ln logname make mkdir mknod mktemp mv nice nohup paste perf printf pwd readlink realpath rm rmdir sed sort split tac tail tar tee test touch tr true truncate tty uniq unlink unzip uptime users who whoami yes zip; do
+    for i in awk chgrp chmod chown chroot cut date df du echo egrep env false fgrep find grep join kill link ln logname make mkdir mknod mktemp mv nice nohup paste perf printf pwd readlink realpath rm rmdir sed sort split tac tail tar tee test touch tr true truncate tty uniq unlink unzip uptime users who whoami yes zip; do
       alias_if_exists "$i" "g$i"
     done
     alias_if_exists "id" "/usr/local/bin/gid"
