@@ -9,12 +9,12 @@ case "$(uname -s)" in
   Darwin)
     echo 'Mac OS X'
     # coreutils: GNU utils for mapping ls -> gls, readlink -> greadlink
-    brew install {coreutils,tmux,zsh,jq,bat,tmuxinator,stow,exa,htop,neovim}
+    brew install {coreutils,tmux,zsh,jq,bat,tmuxinator,stow,exa,htop,neovim,progress}
     ;;
 
   Linux)
     echo 'Linux'
-    sudo apt-get install {build-essential,tmux,zsh,jq,bat,tmuxinator,stow,exa,htop,neovim}
+    sudo apt-get install {build-essential,tmux,zsh,jq,bat,tmuxinator,stow,exa,htop,neovim,progress,watch}
     ;;
 
   CYGWIN*|MINGW32*|MSYS*)

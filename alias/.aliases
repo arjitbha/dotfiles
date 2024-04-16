@@ -45,6 +45,10 @@ alias my-ip="curl ipinfo.io/ip 2> /dev/null"
 alias spell='aspell check'
 alias grepc="grep -P --color=always" #Color grep
 
+# toggle "Disk Not Ejected Properly" mac os notifications
+alias disable_disk_not_ejected="sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist DADisableEjectNotification -bool YES && sudo pkill diskarbitrationd"
+alias enable_disk_not_ejected="sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.DiskArbitration.diskarbitrationd.plist DADisableEjectNotification -bool NO && sudo pkill diskarbitrationd"
+
 alias printpath='echo $PATH | sed "s/:/\\n/g"'
 # Other
   # Create separator using current columns
